@@ -8,7 +8,7 @@ class Main {
     //ask
     //System.out.println("Hello world! Would you like to encrypt something or decrypt it?");
     System.out.println("Hello world! Would you like to use my cipher or the Subsitution Cipher?");
-    System.out.println("Enter A for mine or B for subsitution.");
+    System.out.println("Enter A for mine or B for substitution.");
     //System.out.println("Enter E to encrypt or D to decrypt.");
     //get answer
     
@@ -28,6 +28,9 @@ class Main {
     else if (answer.equals("b")){
       EorD();
     }
+    else{
+      System.out.println("you weren't supposed to get here");
+    }
 
     
     //Encrypt test= new Encrypt("example", "key");
@@ -37,40 +40,56 @@ class Main {
   }
   public static String myCipher(String text, String key, String which){
     //get index of letter
+    int total = 0;
     char[] letters = new char[]{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
     //encryption
+
     if(which.equals("e")){
       //get total of all letter indexes in key
-      int total = 0;
       for(int x = 0; x< key.length(); x++){
         total += findIndex(letters, key.charAt(x))+1;
       }
+      total%=122;
       //make array of charACTERS in text
       char[] textletters = text.toCharArray();
-      String word = "";
+      String word;
       //loop through and increment each letter
       for(char thing: textletters){
-        int t = (int)thing;
-        t += total;
-        t %=26;
-        //add to return string
-        word += String.valueOf((char)t);
+        int temp = thing;
+        temp += total;
+        //doesn't go past z?
+        temp%= 122;
+        // doesn't go before a
+        if (temp< 65){
+          temp +=65;
+        }
+        int x = findIndex(textletters, thing);
+        textletters[x] = (char)temp;
+        //add to array
       }
+      word = new String (textletters);
       //return the result
       return word;
     }
     else{
-      int total = 0;
+      //get total of key = 85;
       for(int x = 0; x< key.length(); x++){
         total += findIndex(letters, key.charAt(x));
       }
+      total%=122;
       char[] textletters = text.toCharArray();
       String word = "";
-      //literally do everything but subtract for 
+      //literally just subtract it should be good
       for(char thing: textletters){
-        thing -= total;
-        word += thing;
+        int temp = thing;
+        temp-= total;
+
+        int x = findIndex(textletters, thing);
+        textletters[x] = (char)temp;
+        //add to array
       }
+      word = new String (textletters);
+      //return the result
       return word;
 
     }
