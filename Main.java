@@ -34,12 +34,13 @@ class Main {
       System.out.println("you weren't supposed to get here");
     }
 
-    
+    //tsests       eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
     //Encrypt test= new Encrypt("example", "key");
     //System.out.println(test.toString());
     //Decrypt again = new Decrypt("xp emeal", "key");
     //System.out.println(again.toString());
   }
+  //took me sjo long
   public static String myCipher(String text, String key, String which){
     //get index of letter
     int total = 0;
@@ -155,11 +156,11 @@ class Main {
     
     String answer = kb.next().toLowerCase();
     while(!answer.equals("e")&& !answer.equals("d")){
-      //yak the drill
+      //again
       kb.nextLine();
-      //eliminate them
+      //put them in their place
       System.out.println("bro dont play w me rn e or d");
-      //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      //ya
       answer = kb.next().toLowerCase();
     }
     if(answer.equals("e")){
