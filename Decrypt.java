@@ -26,6 +26,7 @@ public class Decrypt{
     //loop through array
     for(int x =0; x< keyletters.length;x++){
       //find index of the char in word
+
       int index = key.indexOf(keyletters[x]);
       //loop through a column
       for(int r = 0; r<letters.length; r++){
@@ -53,6 +54,17 @@ public class Decrypt{
     }
     //easy peasy lemon squeezy 
     return plaintext;
+  }
+
+  //method in case there are more than one of the same letter
+  public ArrayList<Integer> findMore(String text, char x){
+    ArrayList<Integer> count = new ArrayList<Integer>();
+    for(int x =0; x<text.length(); x++){
+      if (text.charAt(x) == x){
+        count.add(x);
+      }
+    }
+    return count;
   }
 
   public int getIndex(char[] arr, char letter){
