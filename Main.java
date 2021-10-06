@@ -41,7 +41,7 @@ class Main {
   public static String myCipher(String text, String key, String which){
     //get index of letter
     int total = 0;
-    char[] letters = new char[]{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+    char[] letters = new char[]{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z', ' '};
     //encryption
 
     if(which.equals("e")){
@@ -49,46 +49,40 @@ class Main {
       for(int x = 0; x< key.length(); x++){
         total += findIndex(letters, key.charAt(x))+1;
       }
-      total%=122;
-      //make array of charACTERS in text
-      char[] textletters = text.toCharArray();
-      String word;
+      
       //loop through and increment each letter
-      for(char thing: textletters){
-        int temp = thing;
-        temp += total;
-        //doesn't go past z?
-        temp%= 122;
-        // doesn't go before a
-        if (temp< 65){
-          temp +=65;
-        }
-        int x = findIndex(textletters, thing);
-        textletters[x] = (char)temp;
-        //add to array
+      for(int x = 0; x< text.length(); x++){
+        //set temp
+        char temp = text.charAt(x);
+        //get shifted index, check if goes past 25
+        int index = (findIndex(letters, temp)+total)%25;
+        temp = letters[index];
+        word += temp;
       }
-      word = new String (textletters);
+
       //return the result
       return word;
     }
     else{
-      //get total of key = 85;
+      //get total of all letter indexes in key
       for(int x = 0; x< key.length(); x++){
-        total += findIndex(letters, key.charAt(x));
+        total += findIndex(letters, key.charAt(x))+1;
       }
-      total%=122;
-      char[] textletters = text.toCharArray();
-      String word = "";
-      //literally just subtract it should be good
-      for(char thing: textletters){
-        int temp = thing;
-        temp-= total;
+      
+      //loop through and increment each letter
+      for(int x = 0; x< text.length(); x++){
+        //set temp
+        char temp = text.charAt(x);
+        //get shifted index, check if goes past 25
+        int index = (findIndex(letters, temp)-total);
+        //check if negative and loop back
+        if(index<0){
+          index = 0-index;
+        }
+        temp = letters[index];
+        word += temp;
+      }
 
-        int x = findIndex(textletters, thing);
-        textletters[x] = (char)temp;
-        //add to array
-      }
-      word = new String (textletters);
       //return the result
       return word;
 
