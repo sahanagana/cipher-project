@@ -39,25 +39,45 @@ public class Encrypt{
     }
 
   }
+
+    public ArrayList<Integer> findMore(String text, char e){
+    //create arraylist
+    ArrayList<Integer> count = new ArrayList<Integer>();
+    //loop through word
+    for(int x =0; x<text.length(); x++){
+      //if the char occurs
+      if (text.charAt(x) == e){
+        //add index to list
+        count.add(x);
+      }
+    }
+    //return
+    return count;
+  }
+  //im dead :/
   
   public String toString(){
   // create alphabetized char array for letters
     char[] keyletters = key.toCharArray();
     Arrays.sort(keyletters);
-    //loop through array
+    //loop through letters
     for(int x =0; x< keyletters.length;x++){
-      //find index of the char in word
-      int index = key.indexOf(keyletters[x]);
+      //list all indexes of char
+      ArrayList<Integer> bruh = findMore(plaintext, plaintext.charAt(x));
+      for(int z = 0; z< bruh.size(); z++{
+              //find index of the char in list
+      int index = bruh.get(z);
       //loop through a column
       for(int r = 0; r<letters.length; r++){
         //get all the letters in that column and add it to the ciphertext
         ciphertext+= letters[r][index];
       }
       //repeat until you go through all the rows in that column
+      }
     }
 
     return ciphertext;
   }
 
-// I DID IT YES YES YES
+//screw this
 }

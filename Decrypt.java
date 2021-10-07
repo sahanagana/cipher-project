@@ -19,34 +19,56 @@ public class Decrypt{
   //initialize letter array
     letters= new char[num][len];
     //increment variable for next line
-  //find column order to put letters in
+    //find column order to put letters in
     // create alphabetized char array for letters
     char[] keyletters = key.toCharArray();
     Arrays.sort(keyletters);
     //loop through array
     for(int x =0; x< keyletters.length;x++){
       //find index of the char in word
-
-      int index = key.indexOf(keyletters[x]);
-      //loop through a column
-      for(int r = 0; r<letters.length; r++){
-        //add letters from ciphertext to array
-        if(r+increment < ct.length()){
-          letters[r][index] = ct.charAt(r+increment);
+      ArrayList<Integer> frick = findMore(ct,k.charAt(x));
+      //go through all occurences of char in the list
+      for(int z = 0; z<frick.size(); z++){
+        //get index of next occurrence of char
+        int index = frick.get(z);
+        //go through column
+        for(int r = 0; r<letters.length; r++){
+          //add letters from ciphertext to array
+          if(r+increment < ct.length()){
+            letters[r][index] = ct.charAt(r+increment);
+          }
+          //if it is past last letter, leave
+          else{
+            letters[r][index] = '-';
+          }
+          //literally kill me right now
         }
-        //if it is past last letter, leave
-        else{
-          letters[r][index] = '-';
+        increment+= num;
         }
-        //literally kill me right now
-      }
-      increment+= num;
-      //repeat until you go through all the rows in that column
+      //go through all occurences of char in the list
+      for(int z = 0; z<frick.size(); z++){
+        //get index of next occurrence of char
+        int index = frick.get(z);
+        //go through column
+        for(int r = 0; r<letters.length; r++){
+          //add letters from ciphertext to array
+          if(r+increment < ct.length()){
+            letters[r][index] = ct.charAt(r+increment);
+          }
+          //if it is past last letter, leave
+          else{
+            letters[r][index] = '-';
+          }
+          //literally kill me right now
+        }
+        increment+= num;
+        }
+      // wake me up inside
     }
   }
 
   public String toString(){
-    //just loop straight through the array and add everything!
+    //just loop straight through the array and add everything! (lol i thought it was so simple 2 weeks ago huh)
     for(int r = 0; r<letters.length; r++){
       for(int c = 0; c< letters[r].length; c++){
         plaintext+= letters[r][c];
@@ -56,16 +78,22 @@ public class Decrypt{
     return plaintext;
   }
 
-  //method in case there are more than one of the same letter
-  public ArrayList<Integer> findMore(String text, char x){
+  //method in case there are more than one of the same letter — thanks sebbi
+  public ArrayList<Integer> findMore(String text, char e){
+    //create arraylist
     ArrayList<Integer> count = new ArrayList<Integer>();
+    //loop through word
     for(int x =0; x<text.length(); x++){
-      if (text.charAt(x) == x){
+      //if the char occurs
+      if (text.charAt(x) == e){
+        //add index to list
         count.add(x);
       }
     }
+    //return
     return count;
   }
+  //fml
 
   public int getIndex(char[] arr, char letter){
     //loop through array to find index of a letter
