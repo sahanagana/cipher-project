@@ -29,41 +29,26 @@ public class Decrypt{
       ArrayList<Integer> frick = findMore(ct,k.charAt(x));
       //go through all occurences of char in the list
       for(int z = 0; z<frick.size(); z++){
-        //get index of next occurrence of char
-        int index = frick.get(z);
-        //go through column
-        for(int r = 0; r<letters.length; r++){
-          //add letters from ciphertext to array
-          if(r+increment < ct.length()){
-            letters[r][index] = ct.charAt(r+increment);
+        //check if char hasn't been done before
+        if(ct.charAt(r+increment)!= '.'){
+          //get index of next occurrence of char
+          int index = frick.get(z);
+          //go through column
+          for(int r = 0; r<letters.length; r++){
+            //add letters from ciphertext to array
+            if(r+increment < ct.length()){
+              letters[r][index] = ct.charAt(r+increment);
+            }
+            //if it is past last letter, leave
+            else{
+              letters[r][index] = '-';
+            }
+            //literally kill me right now
           }
-          //if it is past last letter, leave
-          else{
-            letters[r][index] = '-';
-          }
-          //literally kill me right now
+          increment+= num;
         }
-        increment+= num;
+
         }
-      //go through all occurences of char in the list
-      for(int z = 0; z<frick.size(); z++){
-        //get index of next occurrence of char
-        int index = frick.get(z);
-        //go through column
-        for(int r = 0; r<letters.length; r++){
-          //add letters from ciphertext to array
-          if(r+increment < ct.length()){
-            letters[r][index] = ct.charAt(r+increment);
-          }
-          //if it is past last letter, leave
-          else{
-            letters[r][index] = '-';
-          }
-          //literally kill me right now
-        }
-        increment+= num;
-        }
-      // wake me up inside
     }
   }
 
@@ -86,8 +71,14 @@ public class Decrypt{
     for(int x =0; x<text.length(); x++){
       //if the char occurs
       if (text.charAt(x) == e){
+        //increment catch
+        y++;
         //add index to list
         count.add(x);
+        //change the other letters so it won't reloop
+        if(y>1){
+          text.charAt(x)= '.';
+        }
       }
     }
     //return

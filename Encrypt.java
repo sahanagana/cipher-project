@@ -43,12 +43,20 @@ public class Encrypt{
     public ArrayList<Integer> findMore(String text, char e){
     //create arraylist
     ArrayList<Integer> count = new ArrayList<Integer>();
+    //int to catch first letter
+    int y = 0;
     //loop through word
     for(int x =0; x<text.length(); x++){
       //if the char occurs
       if (text.charAt(x) == e){
+        //increment catch
+        y++;
         //add index to list
         count.add(x);
+        //change the other letters so it won't reloop
+        if(y>1){
+          text.charAt(x)= '-';
+        }
       }
     }
     //return
