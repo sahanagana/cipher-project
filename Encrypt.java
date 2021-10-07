@@ -1,4 +1,6 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.lang.StringBuilder;
 public class Encrypt{
   //ciphertext
   private String ciphertext = "";
@@ -54,9 +56,6 @@ public class Encrypt{
         //add index to list
         count.add(x);
         //change the other letters so it won't reloop
-        if(y>1){
-          text.charAt(x)= '-';
-        }
       }
     }
     //return
@@ -68,12 +67,15 @@ public class Encrypt{
   // create alphabetized char array for letters
     char[] keyletters = key.toCharArray();
     Arrays.sort(keyletters);
+    //remove duplicate letters
+    String key2 = removeDuplicate(keyletters,keyletters.length);
+    
     //loop through letters
-    for(int x =0; x< keyletters.length;x++){
+    for(int x =0; x< key2.length();x++){
       //list all indexes of char
-      ArrayList<Integer> bruh = findMore(plaintext, plaintext.charAt(x));
-      for(int z = 0; z< bruh.size(); z++{
-              //find index of the char in list
+      ArrayList<Integer> bruh = findMore(key, key2.charAt(x));
+      for(int z = 0; z< bruh.size(); z++){
+      //find index of the char in array
       int index = bruh.get(z);
       //loop through a column
       for(int r = 0; r<letters.length; r++){
@@ -85,6 +87,34 @@ public class Encrypt{
     }
 
     return ciphertext;
+  }
+    static String removeDuplicate(char[] str, int n)
+  {
+      // Used as index in the modified string
+      int index = 0;
+
+      // Traverse through all characters
+      for (int i = 0; i < n; i++)
+      {
+
+          // Check if str[i] is present before it
+          int j;
+          for (j = 0; j < i; j++)
+          {
+              if (str[i] == str[j])
+              {
+                  break;
+              }
+          }
+
+          // If not present, then add it to
+          // result.
+          if (j == i)
+          {
+              str[index++] = str[i];
+          }
+      }
+      return String.valueOf(Arrays.copyOf(str, index));
   }
 
 //screw this
