@@ -1,4 +1,6 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.lang.StringBuilder;
 public class Decrypt{
   //plaintext
   private String plaintext = "";
@@ -20,34 +22,32 @@ public class Decrypt{
     letters= new char[num][len];
     //increment variable for next line
     //find column order to put letters in
-    // create alphabetized char array for letters
+  // create alphabetized char array for letters
     char[] keyletters = key.toCharArray();
     Arrays.sort(keyletters);
+    //remove duplicate letters
+    String key2 = removeDuplicate(keyletters,keyletters.length);
     //loop through array
-    for(int x =0; x< keyletters.length;x++){
+    for(int x =0; x< key2.length();x++){
       //find index of the char in word
-      ArrayList<Integer> frick = findMore(ct,k.charAt(x));
-      //go through all occurences of char in the list
+      ArrayList<Integer> frick = findMore(key,key2.charAt(x));
+      //go through all occurences of char in the list, but backwards since we're decrypting
       for(int z = 0; z<frick.size(); z++){
-        //check if char hasn't been done before
-        if(ct.charAt(r+increment)!= '.'){
-          //get index of next occurrence of char
-          int index = frick.get(z);
-          //go through column
-          for(int r = 0; r<letters.length; r++){
-            //add letters from ciphertext to array
-            if(r+increment < ct.length()){
-              letters[r][index] = ct.charAt(r+increment);
-            }
-            //if it is past last letter, leave
-            else{
-              letters[r][index] = '-';
-            }
-            //literally kill me right now
+        //get index of next occurrence of char
+        int index = frick.get(z);
+        //go through column
+        for(int r = 0; r<letters.length; r++){
+          //add letters from ciphertext to array
+          if(r+increment < ct.length()){
+            letters[r][index] = ct.charAt(r+increment);
           }
-          increment+= num;
+          //if it is past last letter, leave
+          else{
+            letters[r][index] = '-';
+          }
+          //literally kill me right now
         }
-
+        increment+= num;
         }
     }
   }
@@ -68,6 +68,8 @@ public class Decrypt{
     //create arraylist
     ArrayList<Integer> count = new ArrayList<Integer>();
     //loop through word
+    //int to catch first letter
+    int y = 0;
     for(int x =0; x<text.length(); x++){
       //if the char occurs
       if (text.charAt(x) == e){
@@ -75,10 +77,6 @@ public class Decrypt{
         y++;
         //add index to list
         count.add(x);
-        //change the other letters so it won't reloop
-        if(y>1){
-          text.charAt(x)= '.';
-        }
       }
     }
     //return
@@ -95,5 +93,34 @@ public class Decrypt{
     }
     //if not found get -1, probably won't happen but just in case
     return -1;
+  }
+  //GoatsforGeeks B)
+    static String removeDuplicate(char[] str, int n)
+  {
+      // Used as index in the modified string
+      int index = 0;
+
+      // Traverse through all characters
+      for (int i = 0; i < n; i++)
+      {
+
+          // Check if str[i] is present before it
+          int j;
+          for (j = 0; j < i; j++)
+          {
+              if (str[i] == str[j])
+              {
+                  break;
+              }
+          }
+
+          // If not present, then add it to
+          // result.
+          if (j == i)
+          {
+              str[index++] = str[i];
+          }
+      }
+      return String.valueOf(Arrays.copyOf(str, index));
   }
 }
